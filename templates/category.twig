@@ -1,0 +1,109 @@
+{% extends "layouts/base.twig" %}
+
+{% block title %}Товары категории {{ category.name }}{% endblock %}
+
+{% block content %}
+    <a href="/catalog" class="btn-back">
+        <i class="bi bi-arrow-left"></i>
+        Назад к категориям
+    </a>
+
+    <h1>
+        <i class="bi bi-box-seam me-2"></i>
+        {{ category.name }}
+    </h1>
+
+    <div class="row g-4">
+        {% for product in products %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm product-card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="card-title fw-bold mb-0">{{ product.product_name }}</h5>
+                            <span class="badge bg-primary rounded-pill">#{{ product.id }}</span>
+                        </div>
+
+                        <div class="price-tag mb-3">
+                        <span class="display-6 fw-bold" style="color: var(--primary-color);">
+                            {{ product.price|number_format(0, '.', ' ') }} ₽
+                        </span>
+                        </div>
+
+                        <p class="card-text text-muted mb-3">
+                            <i class="bi bi-tag me-2"></i>
+                            Категория: {{ product.category_name }}
+                        </p>
+
+                        <a href="/catalog/product/{{ product.id }}" class="btn btn-outline-primary w-100">
+                            <i class="bi bi-info-circle me-2"></i>Подробнее
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-warning text-center" role="alert">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    В этой категории пока нет товаров
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <style>
+        .product-card {
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--success-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+        }
+
+        .price-tag {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .badge {
+            padding: 8px 12px;
+            font-weight: 500;
+        }
+
+        .btn-outline-primary {
+            border-width: 2px;
+            border-radius: 25px;
+            padding: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,159 @@
+{% extends "layouts/base.twig" %}
+
+{% block title %}Заказ продукта {{ product.name }}{% endblock %}
+
+{% block content %}
+    <a href="javascript:history.back()" class="btn-back">
+        <i class="bi bi-arrow-left"></i>
+        Вернуться к товару
+    </a>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-0 shadow-lg order-card">
+                <div class="card-header bg-transparent border-0 pt-4">
+                    <h2 class="text-center fw-bold">
+                        <i class="bi bi-box-seam me-2" style="color: var(--primary-color);"></i>
+                        Оформление заказа
+                    </h2>
+                </div>
+
+                <div class="card-body p-4">
+                    <div class="alert alert-light border mb-4 p-3 rounded-3">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-cart3 fs-4 me-3" style="color: var(--primary-color);"></i>
+                            <div>
+                                <small class="text-muted d-block">Вы заказываете:</small>
+                                <strong class="fs-5">{{ product.name }}</strong>
+                                <span class="badge bg-primary ms-2">{{ product.price|number_format(0, '.', ' ') }} ₽</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form method="post" action="/order/{{ product.id }}">
+                        <input type="hidden" name="product_id" value="{{ product.id }}">
+
+                        <div class="mb-4">
+                            <label for="product_name" class="form-label fw-bold">
+                                <i class="bi bi-tag me-2"></i>Товар
+                            </label>
+                            <input type="text"
+                                   class="form-control form-control-lg bg-light"
+                                   id="product_name"
+                                   name="product_name"
+                                   value="{{ product.name }}"
+                                   readonly>
+                            <div class="form-text text-muted">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Название товара
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="address" class="form-label fw-bold">
+                                <i class="bi bi-geo-alt me-2"></i>Адрес доставки
+                            </label>
+                            <textarea class="form-control form-control-lg"
+                                      id="address"
+                                      name="address"
+                                      rows="3"
+                                      placeholder="Введите адрес доставки"
+                                      required></textarea>
+                            <div class="form-text text-muted">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Укажите город, улицу, дом, квартиру
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg w-100 py-3">
+                            <i class="bi bi-check-circle me-2"></i>
+                            Подтвердить заказ
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .order-card {
+            border-radius: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-control {
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
+        }
+
+        .form-control.bg-light {
+            background-color: #f8f9fa !important;
+            border-color: #dee2e6;
+            color: #495057;
+        }
+
+        .form-label {
+            margin-bottom: 8px;
+            color: #2b2d42;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+
+        .alert-light {
+            background-color: #f8f9fa;
+            border-left: 5px solid var(--primary-color) !important;
+        }
+
+        .badge {
+            font-size: 0.85rem;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .form-text {
+            font-size: 0.85rem;
+            margin-top: 6px;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+    </style>
+{% endblock %}

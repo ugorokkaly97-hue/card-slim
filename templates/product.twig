@@ -1,0 +1,116 @@
+{% extends "layouts/base.twig" %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+    <a href="javascript:history.back()" class="btn-back">
+        <i class="bi bi-arrow-left"></i>
+        Вернуться назад
+    </a>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow-lg product-detail-card">
+                <div class="card-body p-4 p-lg-5">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 text-center mb-4 mb-lg-0">
+                            <div class="product-image-placeholder">
+                                <i class="bi bi-box-seam" style="font-size: 8rem; color: var(--primary-color);"></i>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <h1 class="display-5 fw-bold mb-4">{{ product.name }}</h1>
+
+                            <div class="product-details mb-4">
+                                <div class="detail-item mb-3">
+                                    <span class="text-muted">Артикул:</span>
+                                    <span class="fw-bold ms-2">#{{ product.id }}</span>
+                                </div>
+
+                                <div class="detail-item mb-4">
+                                    <span class="text-muted">Цена:</span>
+                                    <div class="display-4 fw-bold" style="color: var(--primary-color);">
+                                        {{ product.price|number_format(0, '.', ' ') }} ₽
+                                    </div>
+                                </div>
+
+                            <div class="d-grid gap-3">
+                                <a href="/order/{{ product.id }}" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-cart-plus me-2"></i>
+                                    Добавить в корзину
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .product-detail-card {
+            border-radius: 25px;
+            overflow: hidden;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-image-placeholder {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 3rem;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .detail-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            padding: 15px;
+            border-radius: 15px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.4);
+        }
+
+        .btn-outline-secondary {
+            padding: 15px;
+            border-radius: 15px;
+            font-weight: 600;
+            border-width: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-secondary:hover {
+            background: linear-gradient(135deg, #6c757d, #495057);
+            border-color: transparent;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(108, 117, 125, 0.3);
+        }
+    </style>
+{% endblock %}

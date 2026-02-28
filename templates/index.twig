@@ -1,0 +1,85 @@
+{% extends "layouts/base.twig" %}
+
+{% block title %}Категории товаров{% endblock %}
+
+{% block content %}
+    <h1>
+        <i class="bi bi-grid-3x3-gap-fill me-2"></i>
+        Каталог товаров
+    </h1>
+    <div class="mb-4 p-3 bg-light rounded-3">
+        <div class="d-flex align-items-center justify-content-between">
+            <div>
+                <h2 class="h4 mb-1">
+                    <i class="bi bi-cart3 me-2" style="color: var(--primary-color);"></i>
+                    Перейти в корзину
+                </h2>
+                <p class="text-muted mb-0">Просмотрите добавленные товары и оформите заказ</p>
+            </div>
+            <a href="/order" class="btn btn-primary">
+                <i class="bi bi-eye me-2"></i>
+                Просмотреть корзину
+            </a>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        {% for category in categories %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="category-icon mb-3">
+                            <i class="bi bi-folder2-open fs-1" style="color: var(--primary-color);"></i>
+                        </div>
+                        <h5 class="card-title fw-bold mb-3">{{ category.name }}</h5>
+                        <a href="/catalog/category/{{ category.id }}" class="btn btn-primary stretched-link">
+                            <i class="bi bi-eye me-2"></i>Просмотреть товары
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-info text-center" role="alert">
+                    <i class="bi bi-info-circle me-2"></i>
+                    Категории временно отсутствуют
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <style>
+        .hover-card {
+            transition: all 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .hover-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(67, 97, 238, 0.2) !important;
+        }
+
+        .category-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-card:hover .category-icon {
+            transform: scale(1.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
+        }
+    </style>
+{% endblock %}
